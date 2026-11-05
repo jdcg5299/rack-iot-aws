@@ -1,0 +1,24 @@
+# Certificados y secretos: nunca se suben al repositorio
+certs/
+*.pem
+*.key
+*.crt
+secrets.h
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editores y sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Bloqueos temporales de OnlyOffice/LibreOffice
+.~lock.*#
+
