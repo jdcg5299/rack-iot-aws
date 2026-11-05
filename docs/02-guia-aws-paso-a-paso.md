@@ -48,7 +48,7 @@
    - Device certificate (`...-certificate.pem.crt`)
    - Private key (`...-private.pem.key`)
    - **Amazon Root CA 1** (`AmazonRootCA1.pem`)
-4. Guárdalos en `rack-iot/certs/` (carpeta **ignorada por Git**).
+4. Guárdalos en `certs/` (carpeta **ignorada por Git**).
 
 ### Paso 3 — Obtener el endpoint
 IoT Core → **Settings** → **Device data endpoint** (`xxxxxxxx-ats.iot.<REGION>.amazonaws.com`). Cópialo; lo usarán el dispositivo y la Lambda.
