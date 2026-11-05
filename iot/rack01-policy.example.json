@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    { "Effect": "Allow", "Action": "iot:Connect",
+      "Resource": "arn:aws:iot:REGION:ACCOUNT_ID:client/rack01-sensor" },
+    { "Effect": "Allow", "Action": "iot:Publish",
+      "Resource": [
+        "arn:aws:iot:REGION:ACCOUNT_ID:topic/rack/rack01/telemetry",
+        "arn:aws:iot:REGION:ACCOUNT_ID:topic/rack/rack01/status" ] },
+    { "Effect": "Allow", "Action": "iot:Subscribe",
+      "Resource": "arn:aws:iot:REGION:ACCOUNT_ID:topicfilter/rack/rack01/cmd" },
+    { "Effect": "Allow", "Action": "iot:Receive",
+      "Resource": "arn:aws:iot:REGION:ACCOUNT_ID:topic/rack/rack01/cmd" }
+  ]
+}
