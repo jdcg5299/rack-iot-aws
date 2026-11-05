@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rack 01 · Monitoreo ambiental</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Rack 01 <span>· Monitoreo ambiental</span></h1>
+      <p class="sub">Sala de servidores · AWS IoT Core → DynamoDB</p>
+    </div>
+    <div class="conn" id="conn"><i></i><span id="connText">Conectando…</span></div>
+  </header>
+
+  <div class="alert" id="alert" hidden></div>
+
+  <main>
+    <section class="cards">
+      <article class="card" id="cardTemp">
+        <h2>Temperatura</h2>
+        <div class="value"><b id="tempVal">--</b><small>°C</small></div>
+        <p class="hint">Umbral de alerta: <span id="tempMax"></span> °C</p>
+      </article>
+      <article class="card" id="cardHum">
+        <h2>Humedad</h2>
+        <div class="value"><b id="humVal">--</b><small>%</small></div>
+        <p class="hint">Rango aceptable: <span id="humRange"></span> %</p>
+      </article>
+      <article class="card">
+        <h2>Última lectura</h2>
+        <div class="value small"><b id="lastTime">--</b></div>
+        <p class="hint" id="lastAge">Sin datos</p>
+      </article>
+    </section>
+
+    <section class="panel chart">
+      <h2>Últimas lecturas</h2>
+      <div class="chartbox"><canvas id="chart"></canvas></div>
+    </section>
+
+    <section class="panel controls">
+      <div>
+        <h2>Ventilador de enfriamiento</h2>
+        <p class="hint">Estado del último comando enviado: <b id="fanState">desconocido</b></p>
+      </div>
+      <div class="btns">
+        <button id="fanBtn" class="btn primary">Encender ventilador</button>
+        <a id="csvBtn" class="btn" href="#">Descargar CSV</a>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
+    </section>
+  </main>
+
+  <footer>Práctica IoT · Especialización IA y Cloud Computing · UAO</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
