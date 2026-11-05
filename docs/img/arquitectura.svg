@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="720" viewBox="0 0 1240 720" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Arquitectura del monitoreo IoT del rack de servidores</title>
+  <desc id="descripcion">El dispositivo publica telemetría por MQTT/TLS en AWS IoT Core; una regla la guarda en DynamoDB. El dashboard consulta una API Gateway que invoca la Lambda; la Lambda lee DynamoDB y publica comandos al dispositivo.</desc>
+
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4da3ff"/>
+    </marker>
+    <marker id="flecha-verde" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2ecc8f"/>
+    </marker>
+    <style>
+      .fondo { fill: #0b1220; }
+      .caja { fill: #121b2e; stroke: #223049; stroke-width: 2; rx: 14; }
+      .caja-iot { stroke: #4da3ff; }
+      .caja-aws { stroke: #f5b942; }
+      .caja-db { stroke: #2ecc8f; }
+      .caja-api { stroke: #ff8a5c; }
+      .titulo { fill: #e6edf7; font: 700 18px system-ui, Segoe UI, sans-serif; }
+      .subtitulo { fill: #8fa0ba; font: 400 13px system-ui, Segoe UI, sans-serif; }
+      .etiqueta { fill: #b8c7dd; font: 600 12px system-ui, Segoe UI, sans-serif; }
+      .etiqueta-chica { fill: #8fa0ba; font: 400 11px system-ui, Segoe UI, sans-serif; }
+      .linea { stroke: #4da3ff; stroke-width: 2; fill: none; marker-end: url(#flecha); }
+      .linea-verde { stroke: #2ecc8f; stroke-width: 2; fill: none; marker-end: url(#flecha-verde); }
+      .linea-punteada { stroke: #8fa0ba; stroke-width: 1.5; stroke-dasharray: 6 6; fill: none; }
+    </style>
+  </defs>
+
+  <rect class="fondo" width="1240" height="720" rx="18"/>
+
+  <text x="60" y="58" class="titulo">Monitoreo IoT del rack de servidores</text>
+  <text x="60" y="82" class="subtitulo">AWS Academy · us-east-1 · ESP32/DHT22 simulado → IoT Core → DynamoDB → API → S3</text>
+
+  <!-- Dispositivo -->
+  <rect class="caja caja-iot" x="50" y="280" width="220" height="170"/>
+  <text x="70" y="315" class="titulo">Dispositivo</text>
+  <text x="70" y="340" class="subtitulo">ESP32 + DHT22 (Wokwi)</text>
+  <text x="70" y="360" class="subtitulo">o simulador Python</text>
+  <text x="70" y="392" class="etiqueta">Client ID: rack01-sensor</text>
+  <text x="70" y="412" class="etiqueta-chica">Certificado X.509</text>
+  <text x="70" y="430" class="etiqueta-chica">Publica cada 5 s</text>
+
+  <!-- IoT Core -->
+  <rect class="caja caja-aws" x="350" y="280" width="240" height="170"/>
+  <text x="370" y="315" class="titulo">AWS IoT Core</text>
+  <text x="370" y="340" class="subtitulo">Broker MQTT gestionado</text>
+  <text x="370" y="362" class="etiqueta">Puerto 8883 · TLS</text>
+  <text x="370" y="392" class="etiqueta">Policy rack01-policy</text>
+  <text x="370" y="412" class="etiqueta-chica">Topics rack/rack01/*</text>
+  <text x="370" y="430" class="etiqueta-chica">Regla: rack_telemetry_to_dynamo</text>
+
+  <!-- DynamoDB -->
+  <rect class="caja caja-db" x="700" y="100" width="250" height="180"/>
+  <text x="720" y="135" class="titulo">DynamoDB</text>
+  <text x="720" y="160" class="subtitulo">Tabla RackTelemetry</text>
+  <text x="720" y="190" class="etiqueta">PK: deviceId (String)</text>
+  <text x="720" y="212" class="etiqueta">SK: ts (Number, epoch ms)</text>
+  <text x="720" y="234" class="etiqueta-chica">Capacidad on-demand</text>
+  <text x="720" y="254" class="etiqueta-chica">Una fila por lectura</text>
+
+  <!-- Lambda -->
+  <rect class="caja caja-api" x="700" y="400" width="250" height="180"/>
+  <text x="720" y="435" class="titulo">Lambda rack-api</text>
+  <text x="720" y="460" class="subtitulo">Python 3.12 · LabRole</text>
+  <text x="720" y="490" class="etiqueta">GET /telemetry</text>
+  <text x="720" y="512" class="etiqueta">GET /csv</text>
+  <text x="720" y="534" class="etiqueta">POST /command</text>
+  <text x="720" y="558" class="etiqueta-chica">Lee DynamoDB y publica en IoT</text>
+
+  <!-- API Gateway -->
+  <rect class="caja caja-api" x="1010" y="400" width="180" height="180"/>
+  <text x="1030" y="435" class="titulo">API Gateway</text>
+  <text x="1030" y="460" class="subtitulo">HTTP API</text>
+  <text x="1030" y="490" class="etiqueta">/telemetry</text>
+  <text x="1030" y="512" class="etiqueta">/csv</text>
+  <text x="1030" y="534" class="etiqueta">/command</text>
+  <text x="1030" y="558" class="etiqueta-chica">CORS habilitado</text>
+
+  <!-- Dashboard -->
+  <rect class="caja caja-iot" x="1010" y="100" width="180" height="180"/>
+  <text x="1030" y="135" class="titulo">Dashboard</text>
+  <text x="1030" y="160" class="subtitulo">S3 sitio estático</text>
+  <text x="1030" y="190" class="etiqueta">HTML + CSS + JS</text>
+  <text x="1030" y="212" class="etiqueta">Chart.js</text>
+  <text x="1030" y="234" class="etiqueta-chica">Polling cada 5 s</text>
+  <text x="1030" y="254" class="etiqueta-chica">Botón ventilador + CSV</text>
+
+  <!-- Flechas -->
+  <path class="linea" d="M 270 350 L 344 350"/>
+  <text x="276" y="336" class="etiqueta">MQTT/TLS</text>
+  <text x="276" y="373" class="etiqueta-chica">telemetry</text>
+
+  <path class="linea-verde" d="M 470 274 L 700 190"/>
+  <text x="540" y="222" class="etiqueta">Regla IoT</text>
+  <text x="540" y="240" class="etiqueta-chica">DynamoDBv2 · PutItem</text>
+
+  <path class="linea-verde" d="M 760 286 L 760 394"/>
+  <text x="774" y="330" class="etiqueta">Query</text>
+  <text x="774" y="348" class="etiqueta-chica">deviceId + ts</text>
+
+  <path class="linea" d="M 950 490 L 1004 490"/>
+  <text x="952" y="476" class="etiqueta">Invoca</text>
+
+  <path class="linea" d="M 1100 394 L 1100 286"/>
+  <text x="1112" y="330" class="etiqueta">HTTPS</text>
+  <text x="1112" y="348" class="etiqueta-chica">fetch cada 5 s</text>
+
+  <path class="linea" d="M 700 450 L 596 420"/>
+  <text x="600" y="458" class="etiqueta">Publica comando</text>
+  <text x="600" y="476" class="etiqueta-chica">rack/rack01/cmd</text>
+
+  <!-- Leyenda -->
+  <rect x="50" y="560" width="1140" height="110" rx="12" fill="#121b2e" stroke="#223049"/>
+  <text x="72" y="590" class="etiqueta">Contrato de datos</text>
+  <text x="72" y="614" class="etiqueta-chica">Telemetría: rack/rack01/telemetry → {"deviceId":"rack01","ts":1767225600000,"temperature":24.6,"humidity":41.2}</text>
+  <text x="72" y="636" class="etiqueta-chica">Comando: rack/rack01/cmd → {"actuator":"fan","state":"ON"} · Estado: rack/rack01/status → {"deviceId":"rack01","fan":"ON"}</text>
+  <text x="72" y="658" class="etiqueta-chica">Alerta: temperatura &gt; 27 °C o humedad fuera de 20–80 % · Credenciales y certificados fuera de Git</text>
+</svg>
