@@ -89,6 +89,7 @@ La guía detallada está en [`docs/02-guia-aws-paso-a-paso.md`](docs/02-guia-aws
 - Conexión MQTT estable, `Conectado, código: Success` y publicación continua → criterio de **comunicación**.
 - Dashboard con tarjetas, gráfica, alerta, control del ventilador y CSV → criterio de **diseño**.
 
+<!--
 ## Problemas encontrados (y solución)
 | Problema | Causa | Solución |
 |---|---|---|
@@ -105,6 +106,7 @@ La guía detallada está en [`docs/02-guia-aws-paso-a-paso.md`](docs/02-guia-aws
 
 ## Limpieza
 Eliminar regla IoT, Thing, certificado y policy, tabla DynamoDB, API Gateway, Lambda y bucket S3 (vaciarlo antes).
+-->
 
 ## Documentación
 | Archivo | Contenido |
@@ -117,7 +119,5 @@ Eliminar regla IoT, Thing, certificado y policy, tabla DynamoDB, API Gateway, La
 | [`docs/06-guia-de-estudio.md`](docs/06-guia-de-estudio.md) | Explicación completa del trabajo para estudiar |
 | [`docs/07-guia-de-sustentacion.md`](docs/07-guia-de-sustentacion.md) | Guion paso a paso para la sustentación |
 
-> Capturas: agrega las evidencias reales en `docs/img/` (por ejemplo `dashboard.png`) cuando las tengas disponibles.
 
-## Autor
-Julian — jdcg5299 · Especialización en IA y Cloud Computing, Universidad Autónoma de Occidente
+
